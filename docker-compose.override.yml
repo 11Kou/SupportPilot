@@ -1,0 +1,11 @@
+name: mewhelp
+# Keep the existing Compose project and its persistent data volumes.
+# Built locally from the same official MinIO release as the original project.
+services:
+  minio:
+    image: mewhelp-minio:RELEASE.2024-05-28T17-19-04Z
+    build:
+      context: ./.deploy/minio
+    pull_policy: never
+    entrypoint: ["/usr/local/bin/minio"]
+    command: ["server", "/minio_data", "--console-address", ":9001"]

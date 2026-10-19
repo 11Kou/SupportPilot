@@ -1,0 +1,72 @@
+{
+  "checks": [
+    {
+      "page": "/",
+      "status": 200
+    },
+    {
+      "page": "/admin",
+      "status": 200
+    },
+    {
+      "page": "/kb",
+      "status": 200
+    },
+    {
+      "page": "/openapi.json",
+      "status": 200
+    },
+    {
+      "test": "knowledge",
+      "status": 200,
+      "response": {
+        "conversation_id": 5,
+        "answer": "支持 **7 天无理由退货**哦～具体规则如下：\n\n- **适用范围**：自签收之日起 7 天内，商品完好、不影响二次销售的，支持无理由退货。定制类、生鲜类商品除外[1]。\n- **不支持退货的商品**：定制类、生鲜类、已拆封的猫砂等消耗品，以及标注「不支持无理由退货」的商品，非质量问题不支持退货[9]。\n- **退款时效**：退货商品经平台核验通过后，退款原路退回，到账时效以平台售后规则为准[3]。\n\n另外提醒一下，**无理由退货的 7 天是从签收之日起算**，和价保（从下单时间起算）不是一回事，别混用哦[1][2]。\n\n还有什么想了解的吗？😊",
+        "tool_calls": [],
+        "tool_results": [],
+        "suggested_actions": [],
+        "interrupt": null
+      }
+    },
+    {
+      "test": "order",
+      "status": 200,
+      "response": {
+        "conversation_id": 6,
+        "answer": "您的订单 **1001**（智能猫砂盆）物流信息如下：\n\n📦 **物流单号**：SF213502378238\n📍 **当前状态**：已揽件\n🏙️ **当前位置**：成都\n\n**物流轨迹**：\n- 成都分拨中心 已发出\n\n目前包裹刚刚从成都发出，正在运输途中。您可以稍后再来查询最新进展，或者关注物流更新哦～如果还有其他问题，随时找我！😊",
+        "tool_calls": [
+          {
+            "id": "01a13de8898b3531bc01b5d6715d5e29",
+            "name": "query_order",
+            "args": {
+              "order_id": "1001"
+            }
+          },
+          {
+            "id": "01a13de8b27801bafa3c4ed413091a83",
+            "name": "query_logistics",
+            "args": {
+              "tracking_no": "SF213502378238"
+            }
+          }
+        ],
+        "tool_results": [
+          {
+            "tool_call_id": "01a13de8898b3531bc01b5d6715d5e29",
+            "name": "query_order",
+            "ok": true,
+            "content": "{\"order_id\": \"1001\", \"status\": \"已付款\", \"amount\": 1739, \"created_at\": \"2026-07-04 10:00\", \"product\": \"智能猫砂盆\", \"tracking_no\": \"SF213502378238\"}"
+          },
+          {
+            "tool_call_id": "01a13de8b27801bafa3c4ed413091a83",
+            "name": "query_logistics",
+            "ok": true,
+            "content": "{\"tracking_no\": \"SF213502378238\", \"status\": \"已揽件\", \"current_city\": \"成都\", \"trace\": [\"成都分拨中心 已发出\", \"内部状态码:PICKED_UP\"]}"
+          }
+        ],
+        "suggested_actions": [],
+        "interrupt": null
+      }
+    }
+  ]
+}
